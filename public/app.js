@@ -1,0 +1,9 @@
+const $=id=>document.getElementById(id);let current=null;
+$("f").addEventListener("submit",async e=>{e.preventDefault();$("msg").textContent="Создаём продукт…";try{
+ const r=await fetch("/api/generate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({skill:$("skill").value,audience:$("audience").value,outcome:$("outcome").value,format:$("format").value,price:$("price").value,plan:"FREE"})});
+ const d=await r.json();if(!r.ok)throw Error(d.error);current=d;
+ $("out").innerHTML=`<div class="output-card"><h3>${esc(d.title)}</h3><div class="accent">${esc(d.format)} · ${esc(d.price)}</div><h4>Обещание</h4><div class="offer">${esc(d.promise)}</div><h4>Структура</h4><ol>${d.sections.map(x=>`<li>${esc(x)}</li>`).join("")}</ol><h4>Бонус</h4><div class="offer">${esc(d.bonus)}</div><h4>Контент</h4><ol>${d.posts.map(x=>`<li>${esc(x)}</li>`).join("")}</ol><div class="output-actions"><a class="btn" href="/api/product/${d.id}/pdf">Скачать PDF</a><a class="btn secondary" href="/api/product/${d.id}/docx">Скачать DOCX</a><button class="btn secondary" onclick="buy()">Получить PRO — $19</button></div></div>`;
+ $("result").classList.remove("hidden");$("result").scrollIntoView({behavior:"smooth"});$("msg").textContent="";
+}catch(x){$("msg").textContent=x.message}}});
+async function buy(){const email=prompt("Введите email для заказа:");if(!email)return;const r=await fetch("/api/checkout",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({productId:current.id,plan:"PRO",email})});const d=await r.json();if(d.url)location.href=d.url;else alert(d.error)}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
