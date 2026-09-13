@@ -1,18 +1,22 @@
 {
-  "name":"navyk-tovar",
-  "version":"1.0.0",
-  "private":true,
-  "description":"Навык → Товар — AI-сервис создания цифровых продуктов",
-  "main":"server.js",
-  "scripts":{"start":"node server.js","dev":"node --watch server.js"},
-  "engines":{"node":">=20"},
-  "dependencies":{
-    "better-sqlite3":"^11.7.0",
-    "dotenv":"^16.4.7",
-    "docx":"^9.1.1",
-    "express":"^4.21.2",
-    "openai":"^5.12.0",
-    "pdfkit":"^0.16.0",
-    "stripe":"^18.5.0"
+  "name": "navyk-tovar",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Навык → Товар — AI-сервис создания цифровых продуктов",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "docx": "^9.1.1",
+    "express": "^4.21.2",
+    "openai": "^5.12.0",
+    "pdfkit": "^0.16.0",
+    "stripe": "^18.5.0"
   }
 }
